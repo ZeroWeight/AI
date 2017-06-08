@@ -1,0 +1,133 @@
+\documentclass[UTF8,a4paper]{paper}
+\usepackage{ctex}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amstext} 
+\usepackage{pdfpages}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{listings}
+\usepackage{multicol}
+\usepackage{float}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+\title{第二次书面作业}
+\author{张蔚桐\ 2015011493\ 自55}
+\begin {document}
+\maketitle
+\section{}
+\subsection{}
+列出真值表
+\begin{table}[H]
+\centering
+\caption{(1)}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+$P$&$Q$&$\neg P\lor\neg Q$&$P\leftrightarrow \neg Q$&$(\neg P\lor\neg Q)\rightarrow(P\leftrightarrow \neg Q)$\\
+\hline 
+T&T&F&F&T\\
+\hline
+T&F&T&T&T\\
+\hline
+F&T&T&T&T\\
+\hline
+F&F&T&F&F\\
+\hline
+\end{tabular}
+\end{table}
+因此得到析取范式为$P\lor Q$
+合取范式为$P\lor Q$
+
+\subsection{}
+这个式子本身是析取范式，于是他的析取范式就是它本身
+$$(P\land \neg Q\land S)\lor(\neg P\land Q\land R)$$
+
+对这个式子取反，得到$$(\neg P\land\neg Q)\lor(\neg P\land Q\land\neg R)\lor(P\land Q\land\neg S)\lor(P\land\neg Q\land S)\lor(P\land Q\land S\land R)$$
+再次取反得到合取范式
+
+$$(P\lor Q)\land(P\lor\neg Q\lor R)\land(\neg P\lor\neg Q\lor S)\land(\neg P\lor Q\lor\neg S)\land(\neg P\lor\neg Q\lor\neg S\lor\neg R)$$
+\section{}
+\begin{enumerate}
+\item 对于所有的$x$存在$y$使得$x+y=0$\ \ \ \ 正确
+\item 存在一个$x$对于所有$y$使得$x+y=0$\ \ \ \ 错误
+\end{enumerate}
+\section{}
+\subsection{}
+写出真值表
+\begin{table}[H]
+\centering
+\caption{(1)}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+$P$&$Q$&$R$&$P\lor\neg Q$&$(P\lor\neg Q)\rightarrow R$&$P\land R$&$((P\lor\neg Q)\rightarrow R)\rightarrow (P\land R)$\\
+\hline
+T&T&T&T&T&T&T\\
+\hline
+T&T&F&T&F&F&T\\
+\hline
+T&F&T&T&T&T&T\\
+\hline
+T&F&F&T&F&F&T\\
+\hline
+F&T&T&F&T&F&F\\
+\hline
+F&T&F&F&T&F&F\\
+\hline
+F&F&T&T&T&F&F\\
+\hline
+F&F&F&T&F&F&T\\
+\hline
+\end{tabular}
+\end{table}
+因此可以得到合取范式
+$(P\lor\neg Q)\land(P\lor Q\lor\neg R)$
+
+因此得到子句集为$\{(P\lor\neg Q),(P\lor Q\lor\neg R)\}$
+\subsection{}
+\begin{equation}\begin{aligned}
+G=&(\forall x)\{(\neg P(x)\lor(\forall y [\neg P(y)\lor P(f(x,y))]))\land(\neg(\forall y)[\neg Q(x,y)\lor P(y)])\}\\
+=&(\forall x)\{(\neg P(x)\lor(\forall y [\neg P(y)\lor P(f(x,y))]))\land(\neg(\forall z)[\neg Q(x,z)\lor P(z)])\}\\
+=&(\forall x)\{(\neg P(x)\lor(\forall y [\neg P(y)\lor P(f(x,y))]))\land((\exists z)[Q(x,z)\land\neg P(z)])\}\\
+=&(\forall x\forall y\exists z)\{(\neg P(x)\lor\neg P(y)\lor P(f(x,y)))\land Q(x,z)\land\neg P(z)\}\\
+\end{aligned}\end{equation}
+得到子句集$\{(\neg P(x)\lor\neg P(y)\lor P(f(x,y))), Q(x,z),\neg P(g(x,y))\}$
+\section{}
+\begin{enumerate}
+\item 存在，$\sigma = \{a/x,b/y,b/z\}$
+\item 存在，$\sigma = \{g(f(v),g(u))/x\}$
+\item 如果存在$f(x)=x$的解$x=x_0$则存在，$\sigma = \{x_0/x,x_0/y\}$，否则不存在
+\item 存在，$\sigma = \{b/x,b/y,b/z\}$
+\end{enumerate}
+\section{}
+\subsection{}
+\begin{equation}\begin{aligned}
+G=&\neg(\exists xP(x)\lor\exists yQ(y))\lor(\exists z(P(z)\lor Q(z)))\\
+=&(\forall x\neg P(x) \land\forall y\neg P(y))\lor(\exists z(P(z)\lor Q(z)))\\
+=&(\forall x\forall y\exists z)(\neg P(x) \land\neg P(y))\lor P(z)\lor Q(z)\\
+=&(\forall x\forall y\exists z)((\neg P(x)\lor P(z)\lor Q(z))\land(\neg P(y)\lor P(z)\lor(Q(z)))\\
+=&(\neg P(x)\lor P(g(x,y))\lor Q(z))\land(\neg P(y)\lor P(g(x,y))\lor(Q(g(x,y)))
+\end{aligned}\end{equation}
+\subsection{}
+\begin{equation}\begin{aligned}
+G=&(\forall x)(\neg P(x)\lor((\forall y)(\neg(\forall z)Q(z,y)\lor\neg(\forall z)(R(y,z)))\\
+=&(\forall x)(\neg P(x)\lor((\forall y)((\exists z)(\neg Q(z,y))\lor(\exists t)(\neg R(y,t)))\\
+=&(\forall x\forall y\exists z\exists t)(\neg P(x)\lor\neg Q(z,y)\lor\neg R(y,t))\\
+=&\neg P(x)\lor\neg Q(g(x,y),y)\lor\neg R(y,g(x,y))
+\end{aligned}\end{equation}
+\subsection{}
+\begin{equation}\begin{aligned}
+G=&\neg(\forall xP(x))\lor((\exists x\forall s\forall t)(Q(x,t)\lor R(x,s,t)))\\
+=&(\exists r\neg P(r))\lor((\exists x\forall s\forall t)(Q(x,t)\lor R(x,s,t)))\\
+=&\exists r\exists x\forall s\forall t(\neg P(r)\lor Q(x,t)\lor R(x,s,t))\\
+=&\neg P(f(s,t))\lor Q(g(s,t),t)\lor R(g(s,t),s,t)
+\end{aligned}\end{equation}
+\section{}
+推理过程比较简单因此直接采用简单的因果推理
+$$\because Read(Liming),\forall x Read(x)\rightarrow Smart(x)$$
+$$\therefore Smart(Liming)$$
+$$\because Smart(Liming)\land \neg Poor(Liming),\forall x \neg Poor(x)\land Smart(x)\rightarrow Happy(x)$$
+$$\therefore Happy(Liming)$$
+$$\because \forall x Happy(x)\rightarrow Exciting(x)$$
+$$\therefore Exciting(Liming)$$
+得证李明过着激动人心的生活
+\end{document}
