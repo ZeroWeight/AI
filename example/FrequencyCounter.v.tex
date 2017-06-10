@@ -1,0 +1,86 @@
+\noindent
+\ttfamily
+\hlstd{}\hllin{01\ }\hlkwa{module\ }\hlstd{}\hlkwd{FCore\ }\hlstd{}\hlopt{(}\hlstd{clk}\hlopt{,}\hlstd{in}\hlopt{,}\hlstd{out}\hlopt{,}\hlstd{digit}\hlopt{);}\\
+\hllin{02\ }\hlstd{}\hlkwa{input\ }\hlstd{clk}\hlopt{;}\\
+\hllin{03\ }\hlstd{}\hlkwa{input\ }\hlstd{in}\hlopt{;}\\
+\hllin{04\ }\hlstd{}\hlkwa{output\ }\hlstd{}\hlopt{{[}}\hlstd{}\hlnum{1}\hlstd{}\hlopt{:}\hlstd{}\hlnum{0}\hlstd{}\hlopt{{]}\ }\hlstd{digit}\hlopt{;}\\
+\hllin{05\ }\hlstd{}\hlkwa{output\ }\hlstd{}\hlopt{{[}}\hlstd{}\hlnum{3}\hlstd{}\hlopt{:}\hlstd{}\hlnum{0}\hlstd{}\hlopt{{]}\ }\hlstd{out}\hlopt{;}\\
+\hllin{06\ }\hlstd{}\hlkwa{reg\ }\hlstd{sec}\hlopt{;}\\
+\hllin{07\ }\hlstd{}\hlkwa{reg\ }\hlstd{a\ }\hlopt{=\ }\hlstd{}\hlnum{0}\hlstd{}\hlopt{;}\\
+\hllin{08\ }\hlstd{}\hlkwa{reg\ }\hlstd{b\ }\hlopt{=\ }\hlstd{}\hlnum{0}\hlstd{}\hlopt{;}\\
+\hllin{09\ }\hlstd{}\hlkwa{reg\ }\hlstd{}\hlopt{{[}}\hlstd{}\hlnum{1}\hlstd{}\hlopt{:}\hlstd{}\hlnum{0}\hlstd{}\hlopt{{]}\ }\hlstd{digit\ }\hlopt{=\ }\hlstd{}\hlnum{2'b00}\hlstd{}\hlopt{;}\\
+\hllin{10\ }\hlstd{}\hlkwa{reg\ }\hlstd{}\hlopt{{[}}\hlstd{}\hlnum{3}\hlstd{}\hlopt{:}\hlstd{}\hlnum{0}\hlstd{}\hlopt{{]}\ }\hlstd{out}\hlopt{;}\\
+\hllin{11\ }\hlstd{}\hlkwa{reg\ }\hlstd{}\hlopt{{[}}\hlstd{}\hlnum{3}\hlstd{}\hlopt{:}\hlstd{}\hlnum{0}\hlstd{}\hlopt{{]}\ }\hlstd{num\ }\hlopt{{[}}\hlstd{}\hlnum{2}\hlstd{}\hlopt{:}\hlstd{}\hlnum{0}\hlstd{}\hlopt{{]};}\\
+\hllin{12\ }\hlstd{}\hlkwa{reg\ }\hlstd{}\hlopt{{[}}\hlstd{}\hlnum{3}\hlstd{}\hlopt{:}\hlstd{}\hlnum{0}\hlstd{}\hlopt{{]}\ }\hlstd{\textunderscore num\ }\hlopt{{[}}\hlstd{}\hlnum{2}\hlstd{}\hlopt{:}\hlstd{}\hlnum{0}\hlstd{}\hlopt{{]};}\\
+\hllin{13\ }\hlstd{}\hlkwa{reg\ }\hlstd{}\hlopt{{[}}\hlstd{}\hlnum{11}\hlstd{}\hlopt{:}\hlstd{}\hlnum{0}\hlstd{}\hlopt{{]}\ }\hlstd{div\ }\hlopt{=\ }\hlstd{}\hlnum{12'b1}\hlstd{}\hlopt{;}\\
+\hllin{14\ }\hlstd{}\hlkwa{reg\ }\hlstd{}\hlopt{{[}}\hlstd{}\hlnum{27}\hlstd{}\hlopt{:}\hlstd{}\hlnum{0}\hlstd{}\hlopt{{]}\ }\hlstd{counter\ }\hlopt{=\ }\hlstd{}\hlnum{28'b0}\hlstd{}\hlopt{;}\\
+\hllin{15\ }\hlstd{}\hlkwa{always\ }\hlstd{}\hlopt{@\ (}\hlstd{}\hlkwa{posedge\ }\hlstd{clk}\hlopt{)}\\
+\hllin{16\ }\hlstd{}\hlkwa{begin}\\
+\hllin{17\ }\hlstd{}\hlslc{//TODO:\ div\ the\ 50MHz\ clock\ to\ 1Hz}\\
+\hllin{18\ }\hlstd{\ }\hlkwa{if}\hlstd{}\hlopt{(}\hlstd{counter\ }\hlopt{==\ }\hlstd{}\hlnum{28'd25000000}\hlstd{}\hlopt{)}\\
+\hllin{19\ }\hlstd{\ }\hlkwa{begin}\\
+\hllin{20\ }\hlstd{}\hlstd{\ \ }\hlstd{sec\ }\hlopt{$<$=\ $\sim$}\hlstd{sec}\hlopt{;}\\
+\hllin{21\ }\hlstd{}\hlstd{\ \ }\hlstd{counter\ }\hlopt{=\ }\hlstd{}\hlnum{28'b1}\hlstd{}\hlopt{;}\\
+\hllin{22\ }\hlstd{\ }\hlkwa{end}\\
+\hllin{23\ }\hlstd{\ }\hlkwa{else\ }\\
+\hllin{24\ }\hlstd{}\hlstd{\ \ }\hlstd{counter\ }\hlopt{$<$=\ }\hlstd{counter\ }\hlnum{+\ 1'b1}\hlstd{}\hlopt{;}\\
+\hllin{25\ }\hlstd{}\hlstd{\ \ }\hlstd{\\
+\hllin{26\ }\ }\hlslc{//TODO:\ div\ a\ sweeping\ signal}\\
+\hllin{27\ }\hlstd{\ }\hlkwa{if}\hlstd{}\hlopt{(}\hlstd{div\ }\hlopt{==\ }\hlstd{}\hlnum{28'b0}\hlstd{}\hlopt{)}\\
+\hllin{28\ }\hlstd{\ }\hlkwa{begin}\\
+\hllin{29\ }\hlstd{}\hlstd{\ \ }\hlstd{div\ }\hlopt{$<$=\ }\hlstd{div\ }\hlnum{+\ 1'b1}\hlstd{}\hlopt{;}\\
+\hllin{30\ }\hlstd{}\hlstd{\ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlopt{(}\hlstd{digit\ }\hlopt{==\ }\hlstd{}\hlnum{2'b10}\hlstd{}\hlopt{)}\\
+\hllin{31\ }\hlstd{}\hlstd{\ \ \ }\hlstd{digit\ }\hlopt{$<$=\ }\hlstd{}\hlnum{2'b00}\hlstd{}\hlopt{;}\\
+\hllin{32\ }\hlstd{}\hlstd{\ \ }\hlstd{}\hlkwa{else}\\
+\hllin{33\ }\hlstd{}\hlstd{\ \ \ }\hlstd{digit\ }\hlopt{$<$=\ }\hlstd{digit\ }\hlnum{+\ 1'b1}\hlstd{}\hlopt{;}\\
+\hllin{34\ }\hlstd{\ }\hlkwa{end}\\
+\hllin{35\ }\hlstd{\ }\hlkwa{else\ }\\
+\hllin{36\ }\hlstd{}\hlstd{\ \ }\hlstd{div\ }\hlopt{$<$=\ }\hlstd{div\ }\hlnum{+\ 1'b1}\hlstd{}\hlopt{;}\\
+\hllin{37\ }\hlstd{}\hlstd{\ \ }\hlstd{\\
+\hllin{38\ }\ }\hlkwa{if}\hlstd{}\hlopt{(}\hlstd{div\ }\hlopt{==\ }\hlstd{}\hlnum{28'd10}\hlstd{}\hlopt{)}\\
+\hllin{39\ }\hlstd{}\hlstd{\ \ }\hlstd{out\ }\hlopt{$<$=\ }\hlstd{num}\hlopt{{[}}\hlstd{digit}\hlopt{{]};}\\
+\hllin{40\ }\hlstd{}\hlkwa{end}\\
+\hllin{41\ }\hlstd{}\\
+\hllin{42\ }\hlkwa{always\ }\hlstd{}\hlopt{@\ (}\hlstd{}\hlkwa{posedge\ }\hlstd{sec}\hlopt{)}\\
+\hllin{43\ }\hlstd{}\hlkwa{begin}\\
+\hllin{44\ }\hlstd{}\hlslc{//TODO:\ clear\ the\ output\ }\\
+\hllin{45\ }\hlstd{a\ }\hlopt{$<$=\ $\sim$}\hlstd{b}\hlopt{;}\\
+\hllin{46\ }\hlstd{}\hlkwa{end}\\
+\hllin{47\ }\hlstd{}\\
+\hllin{48\ }\hlkwa{always\ }\hlstd{}\hlopt{@\ (}\hlstd{}\hlkwa{posedge\ }\hlstd{in}\hlopt{)}\\
+\hllin{49\ }\hlstd{}\hlkwa{begin}\\
+\hllin{50\ }\hlstd{}\hlslc{//TODO:\ count}\\
+\hllin{51\ }\hlstd{\ }\hlkwa{if}\hlstd{}\hlopt{(}\hlstd{a\ }\hlopt{==\ }\hlstd{b}\hlopt{)}\\
+\hllin{52\ }\hlstd{\ }\hlkwa{begin}\\
+\hllin{53\ }\hlstd{}\hlstd{\ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlopt{(}\hlstd{\textunderscore num}\hlopt{{[}}\hlstd{}\hlnum{0}\hlstd{}\hlopt{{]}\ $<$\ }\hlstd{}\hlnum{4'd9}\hlstd{}\hlopt{)}\\
+\hllin{54\ }\hlstd{}\hlstd{\ \ \ }\hlstd{\textunderscore num}\hlopt{{[}}\hlstd{}\hlnum{0}\hlstd{}\hlopt{{]}\ $<$=\ }\hlstd{\textunderscore num}\hlopt{{[}}\hlstd{}\hlnum{0}\hlstd{}\hlopt{{]}\ }\hlstd{}\hlnum{+\ 4'b0001}\hlstd{}\hlopt{;}\\
+\hllin{55\ }\hlstd{}\hlstd{\ \ }\hlstd{}\hlkwa{else}\\
+\hllin{56\ }\hlstd{}\hlstd{\ \ }\hlstd{}\hlkwa{begin}\\
+\hllin{57\ }\hlstd{}\hlstd{\ \ \ }\hlstd{}\hlkwa{if}\hlstd{}\hlopt{(}\hlstd{\textunderscore num}\hlopt{{[}}\hlstd{}\hlnum{1}\hlstd{}\hlopt{{]}\ $<$\ }\hlstd{}\hlnum{4'd9}\hlstd{}\hlopt{)}\\
+\hllin{58\ }\hlstd{}\hlstd{\ \ \ }\hlstd{}\hlkwa{begin\ }\\
+\hllin{59\ }\hlstd{}\hlstd{\ \ \ \ }\hlstd{\textunderscore num}\hlopt{{[}}\hlstd{}\hlnum{1}\hlstd{}\hlopt{{]}\ $<$=\ }\hlstd{\textunderscore num}\hlopt{{[}}\hlstd{}\hlnum{1}\hlstd{}\hlopt{{]}\ }\hlstd{}\hlnum{+\ 4'b0001}\hlstd{}\hlopt{;}\\
+\hllin{60\ }\hlstd{}\hlstd{\ \ \ \ }\hlstd{\textunderscore num}\hlopt{{[}}\hlstd{}\hlnum{0}\hlstd{}\hlopt{{]}\ $<$=\ }\hlstd{}\hlnum{4'b0000}\hlstd{}\hlopt{;}\\
+\hllin{61\ }\hlstd{}\hlstd{\ \ \ }\hlstd{}\hlkwa{end}\\
+\hllin{62\ }\hlstd{}\hlstd{\ \ \ }\hlstd{}\hlkwa{else}\\
+\hllin{63\ }\hlstd{}\hlstd{\ \ \ }\hlstd{}\hlkwa{begin}\\
+\hllin{64\ }\hlstd{}\hlstd{\ \ \ \ }\hlstd{\textunderscore num}\hlopt{{[}}\hlstd{}\hlnum{0}\hlstd{}\hlopt{{]}\ $<$=\ }\hlstd{}\hlnum{4'b0000}\hlstd{}\hlopt{;}\\
+\hllin{65\ }\hlstd{}\hlstd{\ \ \ \ }\hlstd{\textunderscore num}\hlopt{{[}}\hlstd{}\hlnum{1}\hlstd{}\hlopt{{]}\ $<$=\ }\hlstd{}\hlnum{4'b0000}\hlstd{}\hlopt{;}\\
+\hllin{66\ }\hlstd{}\hlstd{\ \ \ \ }\hlstd{\textunderscore num}\hlopt{{[}}\hlstd{}\hlnum{2}\hlstd{}\hlopt{{]}\ $<$=\ }\hlstd{\textunderscore num}\hlopt{{[}}\hlstd{}\hlnum{2}\hlstd{}\hlopt{{]}\ }\hlstd{}\hlnum{+\ 4'b0001}\hlstd{}\hlopt{;}\\
+\hllin{67\ }\hlstd{}\hlstd{\ \ \ }\hlstd{}\hlkwa{end}\\
+\hllin{68\ }\hlstd{}\hlstd{\ \ }\hlstd{}\hlkwa{end}\\
+\hllin{69\ }\hlstd{\ }\hlkwa{end}\\
+\hllin{70\ }\hlstd{\ }\hlkwa{else}\\
+\hllin{71\ }\hlstd{\ }\hlkwa{begin}\\
+\hllin{72\ }\hlstd{}\hlstd{\ \ }\hlstd{b\ }\hlopt{$<$=\ }\hlstd{a}\hlopt{;}\\
+\hllin{73\ }\hlstd{}\hlstd{\ \ }\hlstd{num}\hlopt{{[}}\hlstd{}\hlnum{0}\hlstd{}\hlopt{{]}\ $<$=\ }\hlstd{\textunderscore num}\hlopt{{[}}\hlstd{}\hlnum{0}\hlstd{}\hlopt{{]};}\\
+\hllin{74\ }\hlstd{}\hlstd{\ \ }\hlstd{num}\hlopt{{[}}\hlstd{}\hlnum{1}\hlstd{}\hlopt{{]}\ $<$=\ }\hlstd{\textunderscore num}\hlopt{{[}}\hlstd{}\hlnum{1}\hlstd{}\hlopt{{]};}\\
+\hllin{75\ }\hlstd{}\hlstd{\ \ }\hlstd{num}\hlopt{{[}}\hlstd{}\hlnum{2}\hlstd{}\hlopt{{]}\ $<$=\ }\hlstd{\textunderscore num}\hlopt{{[}}\hlstd{}\hlnum{2}\hlstd{}\hlopt{{]};}\\
+\hllin{76\ }\hlstd{}\hlstd{\ \ }\hlstd{\textunderscore num}\hlopt{{[}}\hlstd{}\hlnum{0}\hlstd{}\hlopt{{]}\ $<$=\ }\hlstd{}\hlnum{4'b0001}\hlstd{}\hlopt{;}\\
+\hllin{77\ }\hlstd{}\hlstd{\ \ }\hlstd{\textunderscore num}\hlopt{{[}}\hlstd{}\hlnum{1}\hlstd{}\hlopt{{]}\ $<$=\ }\hlstd{}\hlnum{4'b0000}\hlstd{}\hlopt{;}\\
+\hllin{78\ }\hlstd{}\hlstd{\ \ }\hlstd{\textunderscore num}\hlopt{{[}}\hlstd{}\hlnum{2}\hlstd{}\hlopt{{]}\ $<$=\ }\hlstd{}\hlnum{4'b0000}\hlstd{}\hlopt{;}\\
+\hllin{79\ }\hlstd{\ }\hlkwa{end}\\
+\hllin{80\ }\hlstd{}\hlkwa{end}\\
+\hllin{81\ }\hlstd{}\hlkwa{endmodule}\hlstd{}\\
+\mbox{}
+\normalfont
+\normalsize
